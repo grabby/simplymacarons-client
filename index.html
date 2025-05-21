@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Macarons - Exquisite Treats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles for the body and font */
+        body {
+            font-family: 'Inter', sans-serif; /* Ensure Inter is used as the primary font */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+            -moz-osx-font-smoothing: grayscale; /* Smoother font rendering */
+            padding-bottom: 70px; /* Add padding at the bottom for the sticky cart bar */
+        }
+
+        /* Container for consistent content width */
+        .container {
+            max-width: 1200px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Product item specific styles - default grid view */
+        .product-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #e0d2e9; /* thistle.300 */
+            border-radius: 0.75rem; /* Tailwind equivalent of rounded-xl */
+            padding: 1.5rem; /* Tailwind equivalent of p-6 */
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Tailwind equivalent of shadow-md */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Stronger shadow on hover */
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: 180px; /* Fixed height for product images */
+            object-fit: cover; /* Ensure images cover the area without distortion */
+            border-radius: 0.5rem; /* Tailwind equivalent of rounded-lg */
+            margin-bottom: 1rem; /* Tailwind equivalent of mb-4 */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .product-item h3 {
+            font-size: 1.25rem; /* Smaller font size for flavor names (text-xl) */
+            font-weight: 600; /* Tailwind equivalent of font-semibold */
+            color: #ff025f; /* carnation_pink.700 */
+            margin-top: 0;
+            margin-bottom: 0.5rem; /* Tailwind equivalent of mb-2 */
+        }
+
+        .product-item .price {
+            font-size: 1.125rem; /* Slightly smaller font for price (text-lg) */
+            font-weight: 700; /* Tailwind equivalent of font-bold */
+            color: #ff5895; /* carnation_pink.600 */
+            margin-bottom: 1rem; /* Tailwind equivalent of mb-4 */
+        }
+
+        .add-to-cart {
+            background-color: #b6dcff; /* light_sky_blue.400 */
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem; /* Tailwind equivalent of px-6 py-3 */
+            border-radius: 0.5rem; /* Tailwind equivalent of rounded-lg */
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600; /* Tailwind equivalent of font-semibold */
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            /* Ensure buttons align horizontally on desktop */
+            width: auto; /* Allow button to take natural width */
+            display: inline-block; /* Ensure it respects width/padding correctly */
+        }
+
+        .add-to-cart:hover {
+            background-color: #c8e4ff; /* light_sky_blue.300 */
+            transform: translateY(-1px);
+        }
+
+        .add-to-cart:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Cart item specific styles */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0; /* Tailwind equivalent of py-3 */
+            border-bottom: 1px solid #b60046; /* fairy_tale.800 */
+        }
+
+        .cart-item:last-child {
+            border-bottom: none; /* No border for the last item */
+        }
+
+        .cart-item span {
+            font-size: 1.125rem; /* Tailwind equivalent of text-lg */
+            color: #2b1a36; /* thistle.900 */
+        }
+
+        .remove-from-cart {
+            background: none;
+            border: none;
+            color: #ff025f; /* carnation_pink.700 */
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500; /* Tailwind equivalent of font-medium */
+            transition: color 0.3s ease-in-out;
+        }
+
+        .remove-from-cart:hover {
+            color: #ab003f; /* carnation_pink.800 */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .hero-content h2 {
+                font-size: 3rem; /* Adjust font size for smaller screens */
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            #shop h2, #cart h2 {
+                font-size: 2.5rem;
+            }
+            .product-item {
+                padding: 1rem;
+            }
+            .product-item img {
+                height: 150px;
+            }
+            /* Adjust sidebar for mobile */
+            #cart-sidebar {
+                width: 100%; /* Full width on mobile */
+                border-radius: 0; /* No rounded corners on mobile */
+            }
+        }
+
+        /* List View specific styles */
+        /* This class will be applied to the product-grid container when in list view */
+        .product-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem; /* Smaller gap between list items */
+        }
+
+        /* This class styles individual items when in list view */
+        .product-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem; /* Compact padding */
+            background-color: white; /* Keep background for readability */
+            border: 1px solid #ebe1f0; /* thistle.200 */
+            border-radius: 0.5rem; /* Slightly rounded corners */
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .product-list-item:hover {
+            background-color: #fff4f8; /* fairy_tale.100 */
+        }
+
+        .product-list-item .product-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Allow name and price to take available space */
+        }
+
+        .product-list-item h3 {
+            font-size: 1rem; /* Smaller font for list item name */
+            margin-bottom: 0.25rem; /* Small margin below name */
+            color: #2b1a36; /* thistle.900 */
+        }
+
+        .product-list-item .price {
+            font-size: 0.9rem; /* Smaller font for list item price */
+            font-weight: 500; /* Less bold */
+            color: #824ea1; /* thistle.700 */
+            margin-bottom: 0; /* No bottom margin */
+        }
+
+        .product-list-item .add-to-cart {
+            margin-left: 1rem; /* Space between price and button */
+            padding: 0.4rem 0.8rem; /* Smaller padding for list item button */
+            font-size: 0.85rem; /* Smaller font for list item button */
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+
+        /* Notification styles */
+        #notification-bar {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0082fb; /* light_sky_blue.700 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 1000;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        #notification-bar.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Sticky Cart Bar styles */
+        #sticky-cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%; /* Center the bar */
+            transform: translateX(-50%); /* Adjust for centering */
+            max-width: 1200px; /* Max width matching container */
+            width: calc(100% - 2rem); /* Full width minus padding, or use 100% and let padding handle it */
+            background-color: #ff025f; /* carnation_pink.700 - Solid color */
+            color: white;
+            padding: 0.5rem 1rem; /* Vertical and horizontal padding */
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            display: none; /* Initially hidden, controlled by JS */
+            justify-content: space-between; /* Distributes space between items */
+            align-items: center; /* Aligns items vertically in the center */
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+        }
+
+        #sticky-cart-bar .cart-total-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #sticky-cart-bar .cart-button {
+            background-color: #a2d2ff; /* light_sky_blue.500 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #sticky-cart-bar .cart-button:hover {
+            background-color: #50aaff; /* light_sky_blue.600 */
+        }
+
+        /* Cart Sidebar styles */
+        #cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px; /* Default width for desktop */
+            height: 100%;
+            background-color: white;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%); /* Hidden by default */
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000; /* Ensure it's above other content */
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        #cart-sidebar.open {
+            transform: translateX(0); /* Slide in */
+        }
+
+        #cart-sidebar .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0d2e9; /* thistle.300 */
+        }
+
+        #cart-sidebar .sidebar-header h2 {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            color: #ff025f; /* carnation_pink.700 */
+        }
+
+        #cart-sidebar .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #824ea1; /* thistle.700 */
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        #cart-sidebar .close-btn:hover {
+            background-color: #f5f0f8; /* thistle.100 */
+        }
+
+        #cart-sidebar .cart-items-list {
+            flex-grow: 1; /* Allows the list to take available space */
+            overflow-y: auto; /* Scroll if content overflows */
+            margin-bottom: 1.5rem;
+        }
+
+        #cart-sidebar .cart-item-sidebar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #ebe1f0; /* thistle.200 */
+        }
+
+        #cart-sidebar .cart-item-sidebar:last-child {
+            border-bottom: none;
+        }
+
+        #cart-sidebar .item-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        #cart-sidebar .item-details span {
+            font-size: 1rem;
+            color: #2b1a36;
+        }
+
+        #cart-sidebar .item-details .price-per-unit {
+            font-size: 0.875rem; /* text-sm */
+            color: #824ea1; /* thistle.700 */
+        }
+
+        #cart-sidebar .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #cart-sidebar .quantity-btn {
+            background-color: #f5f0f8; /* thistle.100 */
+            color: #57346b; /* thistle.800 */
+            border: 1px solid #e0d2e9; /* thistle.300 */
+            border-radius: 0.25rem;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+
+        #cart-sidebar .quantity-btn:hover {
+            background-color: #ebe1f0; /* thistle.200 */
+            border-color: #cdb4db; /* thistle.500 */
+        }
+
+        #cart-sidebar .quantity-display {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2b1a36;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        #cart-sidebar .cart-discount-message {
+            background-color: #edf6ff; /* light_sky_blue.100 */
+            color: #035eaf; /* uranian_blue.800 */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #daedff; /* light_sky_blue.200 */
+        }
+
+        #cart-sidebar .sidebar-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ff025f; /* carnation_pink.700 */
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ffddea; /* fairy_tale.300 */
+            margin-bottom: 1.5rem;
+        }
+
+        #cart-sidebar .checkout-btn-sidebar,
+        #cart-sidebar .clear-cart-btn-sidebar {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+            text-align: center;
+            display: block; /* Make them block level for full width */
+            margin-bottom: 0.75rem; /* Space between buttons */
+        }
+
+        #cart-sidebar .checkout-btn-sidebar {
+            background-color: #b6dcff; /* light_sky_blue.400 */
+            color: white;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        #cart-sidebar .checkout-btn-sidebar:hover {
+            background-color: #c8e4ff; /* light_sky_blue.300 */
+        }
+
+        #cart-sidebar .clear-cart-btn-sidebar {
+            background-color: #ffdeea; /* carnation_pink.200 */
+            color: #b60046; /* fairy_tale.800 */
+            border: 1px solid #ffafcc; /* carnation_pink.500 */
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        #cart-sidebar .clear-cart-btn-sidebar:hover {
+            background-color: #ffcee0; /* carnation_pink.300 */
+        }
+    </style>
+    <script>
+        // Tailwind CSS configuration with the new color palette
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // New color palette from Coolors
+                        thistle: { DEFAULT: '#cdb4db', 100: '#f5f0f8', 200: '#ebe1f0', 300: '#e0d2e9', 400: '#d6c2e2', 500: '#cdb4db', 600: '#a87ec1', 700: '#824ea1', 800: '#57346b', 900: '#2b1a36' },
+                        fairy_tale: { DEFAULT: '#ffc8dd', 100: '#fff4f8', 200: '#ffe9f1', 300: '#ffddea', 400: '#ffd2e3', 500: '#ffc8dd', 600: '#ff6ca4', 700: '#ff116c', 800: '#b60046', 900: '#5b0023' },
+                        carnation_pink: { DEFAULT: '#ffafcc', 100: '#ffeff5', 200: '#ffdeea', 300: '#ffcee0', 400: '#ffbed6', 500: '#ffafcc', 600: '#ff5895', 700: '#ff025f', 800: '#ab003f', 900: '#56001f' },
+                        uranian_blue: { DEFAULT: '#bde0fe', 100: '#f2f9ff', 200: '#e5f3ff', 300: '#d8ecfe', 400: '#cbe6fe', 500: '#bde0fe', 600: '#66b6fd', 700: '#0f8dfb', 800: '#035eaf', 900: '#012f57' },
+                        light_sky_blue: { DEFAULT: '#a2d2ff', 100: '#edf6ff', 200: '#daedff', 300: '#c8e4ff', 400: '#b6dcff', 500: '#a2d2ff', 600: '#50aaff', 700: '#0082fb', 800: '#0056a7', 900: '#002b54' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-fairy_tale-100 text-gray-800">
+    <div id="notification-bar"></div>
+
+    <header class="bg-fairy_tale-300 p-4 shadow-md rounded-b-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-carnation_pink-700">Simply Macarons</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300">Home</a></li>
+                    <li><a href="#shop" class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300">Shop</a></li>
+                    <li><a href="javascript:void(0)" id="cart-link-header" class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300">Cart (<span id="cart-item-count" class="font-bold">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 mt-4">
+        <section id="hero" class="bg-gradient-to-r from-fairy_tale-500 to-uranian_blue-500 text-white p-16 text-center rounded-xl shadow-lg mb-8">
+            <div class="hero-content">
+                <h2 class="text-5xl font-extrabold mb-4 leading-tight">Handcrafted Macarons in Victoria, BC</h2>
+                <p class="text-xl mb-8 opacity-90">Indulge in our exquisite variety of flavors, made with local ingredients and available with dietary options like dairy-free and gluten-free.</p>
+                <a href="#shop" class="inline-block bg-white text-carnation_pink-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-fairy_tale-100 transition duration-300 shadow-md">Explore Our Flavors</a>
+            </div>
+        </section>
+
+        <section id="shop" class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-4xl font-bold text-carnation_pink-700 mb-8 text-center">Our Delicious Macarons</h2>
+            <div class="flex justify-end mb-4">
+                <button id="toggle-view-button" class="bg-thistle-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-thistle-600 transition duration-300 shadow-md">
+                    Toggle List View
+                </button>
+            </div>
+            <div class="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <section id="cart" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-4xl font-bold text-carnation_pink-700 mb-8 text-center">Your Cart</h2>
+            <div id="cart-items" class="mb-6 border-b border-fairy_tale-800 pb-4">
+                <p id="empty-cart" class="text-center text-thistle-700 italic">Your cart is empty.</p>
+            </div>
+            <div id="cart-total" class="text-right text-2xl font-bold text-carnation_pink-700 mb-6">
+                <strong>Total: $<span id="total-price">0.00</span></strong>
+            </div>
+            <a href="order.html" id="checkout-button" class="w-full bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-light_sky_blue-300 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md text-center" disabled>Proceed to Checkout</a>
+        </section>
+    </main>
+
+    <footer class="bg-fairy_tale-300 p-4 text-center text-carnation_pink-600 mt-8 rounded-t-lg shadow-inner">
+        <p>&copy; 2025 Simply Macarons. Visit us at <a href="https://simplymacarons.ca" class="text-carnation_pink-700 hover:underline">simplymacarons.ca</a></p>
+    </footer>
+
+    <div id="sticky-cart-bar" class="container mx-auto">
+        <div class="cart-total-display">
+            <span>Cart Total: $<span id="sticky-total-price">0.00</span></span>
+        </div>
+        <a href="javascript:void(0)" id="sticky-cart-button" class="cart-button">View Cart (<span id="sticky-cart-item-count">0</span>)</a>
+    </div>
+
+    <div id="cart-sidebar">
+        <div class="sidebar-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" id="close-sidebar-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="sidebar-cart-items">
+            </div>
+        <div class="cart-discount-message" id="sidebar-discount-message" style="display: none;">
+            Add <span id="macarons-needed-for-discount"></span> more macarons for a 10% discount!
+        </div>
+        <div class="sidebar-total">
+            <span>Total:</span>
+            <span id="sidebar-total-price">$0.00</span>
+        </div>
+        <a href="order.html" class="checkout-btn-sidebar">Checkout</a>
+        <button class="clear-cart-btn-sidebar" id="clear-cart-sidebar-btn">Clear Cart</button>
+    </div>
+
+    <script>
+        // Get references to DOM elements
+        const productGrid = document.querySelector('.product-grid');
+        const cartItemsContainer = document.getElementById('cart-items'); // Main cart section
+        const cartTotalElement = document.getElementById('total-price'); // Main cart total
+        const cartItemCountElement = document.getElementById('cart-item-count'); // Header cart count
+        const checkoutButton = document.getElementById('checkout-button'); // Main checkout button
+        const emptyCartMessage = document.getElementById('empty-cart'); // Main empty cart message
+        const toggleViewButton = document.getElementById('toggle-view-button');
+        const notificationBar = document.getElementById('notification-bar');
+        const stickyCartBar = document.getElementById('sticky-cart-bar');
+        const stickyTotalPrice = document.getElementById('sticky-total-price');
+        const stickyCartItemCount = document.getElementById('sticky-cart-item-count');
+
+        // Sidebar specific elements
+        const cartLinkHeader = document.getElementById('cart-link-header');
+        const stickyCartButton = document.getElementById('sticky-cart-button');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const sidebarCartItems = document.getElementById('sidebar-cart-items');
+        const sidebarTotalPrice = document.getElementById('sidebar-total-price');
+        const sidebarDiscountMessage = document.getElementById('sidebar-discount-message');
+        const macaronsNeededForDiscount = document.getElementById('macarons-needed-for-discount');
+        const clearCartSidebarBtn = document.getElementById('clear-cart-sidebar-btn');
+
+
+        // Initialize the cart as an empty array
+        let cart = [];
+        let isGridView = true; // State to track current view mode
+
+        // Define the list of products available for sale
+        const products = [
+            { id: 1, name: 'Cotton Candy', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+            { id: 2, name: 'Bubble Gum', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful.jpg?raw=true' },
+            { id: 3, name: 'Fuzzy Peach', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-fuzzy-peach.jpg?raw=true' },
+            { id: 4, name: 'Watermelon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-yellow-green-blue.jpg?raw=true' },
+            { id: 5, name: 'Lavender', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-blue.jpg?raw=true' },
+            { id: 6, name: 'Earl Grey', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-white.jpg?raw=true' },
+            { id: 7, name: 'Lemon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-lemon-buttercream.jpg?raw=true' },
+            { id: 8, name: 'Guava', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pink-green-chocolate-purple.jpg?raw=true' },
+            { id: 9, name: 'Vanilla', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+            { id: 10, name: 'Cola', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+            { id: 11, name: 'Chocolate', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-double-chocolate.jpg?raw=true' },
+            { id: 12, name: 'Salted Caramel', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+            { id: 13, name: 'Cherry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-red-white-canada.jpg?raw=true' },
+            { id: 14, name: 'Banana', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-yellow-green-blue2.jpg?raw=true' },
+            { id: 15, name: 'Apple', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-lime-green.jpg?raw=true' },
+            { id: 16, name: 'Pistachio', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+            { id: 17, name: 'Strawberry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pink-and-white.jpg?raw=true' },
+            { id: 18, name: 'Raspberry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pretty-in-pink.jpg?raw=true' },
+            { id: 19, name: 'Mango', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful.jpg?raw=true' },
+            { id: 20, name: 'Coconut', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+            { id: 21, name: 'Marshmallow', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+            { id: 22, name: 'Cookies and Cream', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-white.jpg?raw=true' },
+            { id: 23, name: 'Nutella', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-double-chocolate.jpg?raw=true' },
+            { id: 24, name: 'Cashew Caramel', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+            { id: 25, name: 'Crème brûlée', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+            { id: 26, name: 'Cinnamon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-holday-eggnog.jpg?raw=true' },
+            { id: 27, name: 'Red Velvet', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-red-white-canada.jpg?raw=true' },
+            { id: 28, name: 'Biscoff', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-halloween-flavours.jpg?raw=true' },
+        ];
+
+        /**
+         * Displays a temporary notification message at the top of the screen.
+         * @param {string} message The message to display.
+         */
+        function showNotification(message) {
+            notificationBar.textContent = message;
+            notificationBar.classList.add('show');
+            setTimeout(() => {
+                notificationBar.classList.remove('show');
+            }, 2000); // Hide after 2 seconds
+        }
+
+        /**
+         * Opens the cart sidebar.
+         */
+        function openCartSidebar() {
+            cartSidebar.classList.add('open');
+            updateCart(); // Ensure sidebar content is fresh when opened
+        }
+
+        /**
+         * Closes the cart sidebar.
+         */
+        function closeCartSidebar() {
+            cartSidebar.classList.remove('open');
+        }
+
+        /**
+         * Updates the text of the toggle view button based on the current view mode.
+         */
+        function updateToggleButtonText() {
+            toggleViewButton.textContent = isGridView ? 'Toggle List View' : 'Toggle Grid View';
+        }
+
+        /**
+         * Renders all products to the product grid section of the page.
+         * The rendering adapts based on the current `isGridView` state.
+         */
+        function renderProducts() {
+            productGrid.innerHTML = ''; // Clear existing content
+            const BOX_PRICE = 24.00; // $2.00 per macaron * 12
+
+            // Adjust product grid container classes based on view mode
+            if (isGridView) {
+                productGrid.classList.remove('flex', 'flex-col', 'gap-4', 'list-view'); // Ensure list-view class is removed
+                productGrid.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-4', 'gap-6');
+            } else {
+                productGrid.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-4', 'gap-6');
+                productGrid.classList.add('flex', 'flex-col', 'gap-4', 'list-view');
+            }
+
+            products.forEach(product => {
+                const productItemDiv = document.createElement('div');
+                let innerHTMLContent = '';
+
+                // Remove all view-specific classes before adding the correct one
+                productItemDiv.classList.remove('product-item', 'product-list-item');
+                // Also remove any specific styling classes that might persist from previous renders
+                productItemDiv.removeAttribute('class');
+                
+                if (isGridView) {
+                    productItemDiv.classList.add('product-item', 'rounded-xl', 'shadow-md', 'p-6', 'flex', 'flex-col', 'items-center', 'bg-white', 'transition', 'duration-300', 'ease-in-out', 'transform', 'hover:scale-105', 'hover:shadow-lg');
+                    innerHTMLContent = `
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FFC8DD/AB003F?text=Image+Error';">
+                        <h3 class="text-xl font-semibold text-carnation_pink-700 mb-2">${product.name}</h3>
+                        <p class="price text-lg font-bold text-carnation_pink-600 mb-4">Box of 12: $${BOX_PRICE.toFixed(2)}</p>
+                        <button class="add-to-cart bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-light_sky_blue-300 transition duration-300 shadow-md" data-id="${product.id}">Add to Cart</button>
+                    `;
+                } else {
+                    // List view: no image, simplified row
+                    productItemDiv.classList.add('product-list-item');
+                    innerHTMLContent = `
+                        <div class="product-info">
+                            <h3 class="text-thistle-900">${product.name}</h3>
+                            <p class="price text-thistle-700">Box of 12: $${BOX_PRICE.toFixed(2)}</p>
+                        </div>
+                        <button class="add-to-cart bg-light_sky_blue-400 text-white px-3 py-2 rounded-md text-sm font-semibold hover:bg-light_sky_blue-300 transition duration-300 shadow-md" data-id="${product.id}">Add</button>
+                    `;
+                }
+                productItemDiv.innerHTML = innerHTMLContent;
+                productGrid.appendChild(productItemDiv);
+            });
+
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        /**
+         * Handles adding a product to the cart when its "Add to Cart" button is clicked.
+         * If the product is already in the cart, its quantity is incremented by 12. Otherwise, it's added as a new item with quantity 12.
+         * @param {Event} event The click event object.
+         */
+        function addToCart(event) {
+            const productId = parseInt(event.target.dataset.id);
+            const selectedProduct = products.find(product => product.id === productId);
+            const BOX_SIZE = 12; // Define box size for adding to cart
+
+            if (selectedProduct) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    // If item already exists, increment its quantity by a box size
+                    existingItem.quantity += BOX_SIZE;
+                } else {
+                    // If item is new, add it to the cart with quantity equal to a box size
+                    cart.push({ ...selectedProduct, quantity: BOX_SIZE });
+                }
+                updateCart(); // Update the cart display
+                showNotification(`${selectedProduct.name} (Box of 12) added to cart!`); // Show notification
+            } else {
+                console.error('Product not found for ID:', productId);
+            }
+        }
+
+        /**
+         * Increments the quantity of a product in the cart.
+         * @param {number} productId The ID of the product to increment.
+         */
+        function incrementQuantity(productId) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+
+        /**
+         * Decrements the quantity of a product in the cart.
+         * If quantity drops to 0, the item is removed.
+         * @param {number} productId The ID of the product to decrement.
+         */
+        function decrementQuantity(productId) {
+            const itemIndex = cart.findIndex(i => i.id === productId);
+            if (itemIndex > -1) {
+                if (cart[itemIndex].quantity > 1) {
+                    cart[itemIndex].quantity -= 1;
+                } else {
+                    // If quantity is 1, remove the item
+                    cart.splice(itemIndex, 1);
+                }
+                updateCart();
+            }
+        }
+
+        /**
+         * Handles removing a product from the cart.
+         * @param {number} productId The ID of the product to remove.
+         */
+        function removeFromCart(productId) {
+            // Filter out the item with the given productId from the cart array
+            cart = cart.filter(item => item.id !== productId);
+            updateCart(); // Update the cart display
+        }
+
+        /**
+         * Clears all items from the cart.
+         */
+        function clearCart() {
+            cart = [];
+            updateCart();
+            showNotification('Cart cleared!');
+            closeCartSidebar(); // Close sidebar after clearing
+        }
+
+        /**
+         * Updates the cart's display, including items listed, total price, and item count.
+         * Also manages the state of the checkout button and empty cart message.
+         * Updates the sticky cart bar and sidebar as well.
+         */
+        function updateCart() {
+            // Clear current cart items display for main cart and sidebar
+            cartItemsContainer.innerHTML = '';
+            sidebarCartItems.innerHTML = '';
+            let totalPrice = 0;
+            let totalItems = 0; // Total count of individual macarons
+
+            // Calculate total quantity of individual macarons in the cart first
+            cart.forEach(item => {
+                totalItems += item.quantity;
+            });
+
+            // Determine the price per macaron based on the total quantity
+            // Base price is $2.00, discounted to $1.80 after 50 macarons
+            const pricePerMacaron = (totalItems >= 50) ? 1.80 : 2.00;
+
+            if (cart.length === 0) {
+                // Main cart section
+                emptyCartMessage.style.display = 'block';
+                checkoutButton.disabled = true;
+                checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+                // Sticky bar
+                stickyCartBar.style.display = 'none';
+
+                // Sidebar
+                sidebarCartItems.innerHTML = `<p class="text-center text-thistle-700 italic mt-4">Your cart is empty.</p>`;
+                sidebarDiscountMessage.style.display = 'none';
+
+            } else {
+                // Main cart section
+                emptyCartMessage.style.display = 'none';
+                checkoutButton.disabled = false;
+                checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                // Sticky bar
+                stickyCartBar.style.display = 'flex';
+
+                // Discount message logic for sidebar
+                if (totalItems < 50) {
+                    sidebarDiscountMessage.style.display = 'block';
+                    macaronsNeededForDiscount.textContent = 50 - totalItems;
+                } else {
+                    sidebarDiscountMessage.style.display = 'none';
+                }
+
+                // Render each item in the cart for both main cart and sidebar
+                cart.forEach(item => {
+                    const itemTotal = pricePerMacaron * item.quantity;
+                    totalPrice += itemTotal; // Sum up the calculated item totals
+
+                    let quantityDisplay = '';
+                    const numBoxes = Math.floor(item.quantity / 12);
+                    const looseMacarons = item.quantity % 12;
+
+                    if (numBoxes > 0 && looseMacarons === 0) {
+                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12`;
+                    } else if (numBoxes > 0 && looseMacarons > 0) {
+                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12 + ${looseMacarons} loose`;
+                    } else { // This case should ideally not be hit if adding only by box, but for robustness
+                        quantityDisplay = `${looseMacarons} loose`;
+                    }
+
+                    // For Main Cart Section
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.classList.add('cart-item', 'flex', 'justify-content-between', 'align-items-center', 'py-3', 'border-b', 'border-fairy_tale-800');
+                    cartItemDiv.innerHTML = `
+                        <span class="text-lg text-thistle-900">${item.name} (${quantityDisplay})</span>
+                        <span class="text-lg font-semibold text-carnation_pink-600">$${itemTotal.toFixed(2)}</span>
+                        <button class="remove-from-cart text-carnation_pink-700 hover:text-carnation_pink-800 transition duration-300" data-id="${item.id}">Remove</button>
+                    `;
+                    const removeButton = cartItemDiv.querySelector('.remove-from-cart');
+                    removeButton.addEventListener('click', () => removeFromCart(item.id));
+                    cartItemsContainer.appendChild(cartItemDiv);
+
+                    // For Sidebar Cart
+                    const sidebarItemDiv = document.createElement('div');
+                    sidebarItemDiv.classList.add('cart-item-sidebar');
+                    sidebarItemDiv.innerHTML = `
+                        <div class="item-details">
+                            <span>${item.name}</span>
+                            <span class="price-per-unit">$${pricePerMacaron.toFixed(2)} each</span>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrement-btn" data-id="${item.id}">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="quantity-btn increment-btn" data-id="${item.id}">+</button>
+                        </div>
+                    `;
+                    sidebarCartItems.appendChild(sidebarItemDiv);
+
+                    // Add event listeners for sidebar quantity buttons
+                    sidebarItemDiv.querySelector('.increment-btn').addEventListener('click', () => incrementQuantity(item.id));
+                    sidebarItemDiv.querySelector('.decrement-btn').addEventListener('click', () => decrementQuantity(item.id));
+                });
+            }
+
+            // Update the total price and cart item count in the header
+            cartTotalElement.textContent = totalPrice.toFixed(2);
+            cartItemCountElement.textContent = totalItems;
+
+            // Update sticky cart bar
+            stickyTotalPrice.textContent = totalPrice.toFixed(2);
+            stickyCartItemCount.textContent = totalItems;
+
+            // Update sidebar total
+            sidebarTotalPrice.textContent = totalPrice.toFixed(2);
+
+            // Save cart to localStorage
+            localStorage.setItem('macaronCart', JSON.stringify(cart));
+        }
+
+        // Event Listeners for sidebar
+        cartLinkHeader.addEventListener('click', openCartSidebar);
+        stickyCartButton.addEventListener('click', openCartSidebar);
+        closeSidebarBtn.addEventListener('click', closeCartSidebar);
+        clearCartSidebarBtn.addEventListener('click', clearCart);
+
+        // Add event listener for the toggle view button
+        toggleViewButton.addEventListener('click', () => {
+            isGridView = !isGridView; // Toggle the view state
+            renderProducts(); // Re-render products with the new view
+            updateToggleButtonText(); // Update the button text
+        });
+
+        // Initial rendering of products and cart when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load cart from localStorage on page load
+            cart = JSON.parse(localStorage.getItem('macaronCart')) || [];
+            renderProducts();
+            updateCart();
+            updateToggleButtonText(); // Set initial button text
+        });
+    </script>
+</body>
+</html>

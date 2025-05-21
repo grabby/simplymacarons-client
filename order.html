@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Simply Macarons - Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        /* Base styles for the body and font */
+        body {
+            font-family: 'Inter', sans-serif; /* Ensure Inter is used as the primary font */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+            -moz-osx-font-smoothing: grayscale; /* Smoother font rendering */
+            padding-bottom: 2rem; /* Add padding at the bottom for general spacing */
+        }
+
+        /* Container for consistent content width */
+        .container {
+            max-width: 1200px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Explicit color definitions for consistency with index.html */
+        .bg-fairy_tale-300 { background-color: #ffddea; }
+        .text-carnation_pink-700 { color: #ff025f; }
+        .text-carnation_pink-600 { color: #ff5895; }
+        .hover\:text-carnation_pink-800:hover { color: #ab003f; }
+        .bg-light_sky_blue-400 { background-color: #b6dcff; }
+        .hover\:bg-light_sky_blue-300:hover { background-color: #c8e4ff; }
+        .text-thistle-700 { color: #824ea1; }
+        .border-fairy_tale-800 { border-color: #b60046; }
+        .text-thistle-900 { color: #2b1a36; }
+        .bg-carnation_pink-700 { background-color: #ff025f; }
+        .bg-light_sky_blue-500 { background-color: #a2d2ff; }
+        .hover\:bg-light_sky_blue-600:hover { background-color: #50aaff; }
+        .bg-thistle-500 { background-color: #cdb4db; }
+        .hover\:bg-thistle-600:hover { background-color: #a87ec1; }
+
+
+        /* Form specific styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2b1a36; /* thistle.900 */
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e0d2e9; /* thistle.300 */
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #2b1a36;
+            background-color: #fff;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #a2d2ff; /* light_sky_blue.500 */
+            box-shadow: 0 0 0 3px rgba(162, 210, 255, 0.5); /* light_sky_blue.500 with transparency */
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Order Summary styles */
+        #order-summary {
+            background-color: #fff4f8; /* fairy_tale.100 */
+            border: 1px solid #ffddea; /* fairy_tale.300 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        #order-summary h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff025f; /* carnation_pink.700 */
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #2b1a36;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ff025f;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ffddea;
+        }
+
+        /* Thank you message styles */
+        #thank-you-message {
+            display: none; /* Hidden by default */
+            background-color: #d6c2e2; /* thistle.400 */
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+
+        /* Notification Bar styles (copied from index.html) */
+        #notification-bar {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0082fb; /* light_sky_blue.700 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 1000;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        #notification-bar.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Email Modal Styles */
+        #email-modal {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        }
+        #email-modal > div { /* Modal content box */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        #email-content {
+            background-color: #f8f8f8; /* Light background for code/preformatted text */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e0d2e9;
+            font-family: monospace; /* Monospace font for email content */
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            word-wrap: break-word; /* Break long words */
+        }
+    </style>
+<script>
+        // Tailwind CSS configuration with the new color palette
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // New color palette from Coolors
+                        thistle: { DEFAULT: '#cdb4db', 100: '#f5f0f8', 200: '#ebe1f0', 300: '#e0d2e9', 400: '#d6c2e2', 500: '#cdb4db', 600: '#a87ec1', 700: '#824ea1', 800: '#57346b', 900: '#2b1a36' },
+                        fairy_tale: { DEFAULT: '#ffc8dd', 100: '#fff4f8', 200: '#ffe9f1', 300: '#ffddea', 400: '#ffd2e3', 500: '#ffc8dd', 600: '#ff6ca4', 700: '#ff116c', 800: '#b60046', 900: '#5b0023' },
+                        carnation_pink: { DEFAULT: '#ffafcc', 100: '#ffeff5', 200: '#ffdeea', 300: '#ffcee0', 400: '#ffbed6', 500: '#ffafcc', 600: '#ff5895', 700: '#ff025f', 800: '#ab003f', 900: '#56001f' },
+                        uranian_blue: { DEFAULT: '#bde0fe', 100: '#f2f9ff', 200: '#e5f3ff', 300: '#d8ecfe', 400: '#cbe6fe', 500: '#bde0fe', 600: '#66b6fd', 700: '#0f8dfb', 800: '#035eaf', 900: '#012f57' },
+                        light_sky_blue: { DEFAULT: '#a2d2ff', 100: '#edf6ff', 200: '#daedff', 300: '#c8e4ff', 400: '#b6dcff', 500: '#a2d2ff', 600: '#50aaff', 700: '#0082fb', 800: '#0056a7', 900: '#002b54' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-fairy_tale-100 text-gray-800">
+<div id="notification-bar"></div>
+<header class="bg-fairy_tale-300 p-4 shadow-md rounded-b-lg">
+<div class="container mx-auto flex justify-between items-center">
+<h1 class="text-3xl font-bold text-carnation_pink-700">Simply Macarons</h1>
+<nav>
+<ul class="flex space-x-6">
+<li><a class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300" href="index.html">Home</a></li>
+<li><a class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300" href="index.html#shop">Shop</a></li>
+<li><a class="text-carnation_pink-600 hover:text-carnation_pink-800 font-semibold transition duration-300" href="index.html#cart">Cart</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container mx-auto p-4 mt-4">
+<section class="bg-white p-8 rounded-xl shadow-lg" id="checkout">
+<h2 class="text-4xl font-bold text-carnation_pink-700 mb-8 text-center">Checkout / Order Form</h2>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6" id="checkout-form">
+<div>
+<h3 class="text-2xl font-bold text-thistle-900 mb-4">Your Details</h3>
+<div class="form-group">
+<label for="firstName">First Name:</label>
+<input class="w-full" id="firstName" name="firstName" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="lastName">Last Name:</label>
+<input class="w-full" id="lastName" name="lastName" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email:</label>
+<input class="w-full" id="email" name="email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="phone">Phone Number:</label>
+<input class="w-full" id="phone" name="phone" required="" type="tel"/>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-thistle-900 mb-4">Special Instructions</h3>
+<div class="form-group">
+<label for="specialInstructions">Special Instructions / Notes:</label>
+<textarea class="w-full" id="specialInstructions" name="specialInstructions" rows="4"></textarea>
+</div>
+</div>
+</form>
+<div id="order-summary">
+<h3>Your Order Summary</h3>
+<div id="summary-items">
+<p class="text-center text-thistle-700 italic">Your cart is empty. Please add items on the <a class="text-carnation_pink-600 hover:underline" href="index.html#shop">shop page</a>.</p>
+</div>
+<div class="summary-total">
+<span>Estimated Total:</span>
+<span id="summary-total-price">$0.00</span>
+</div>
+</div>
+<button class="w-full bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-light_sky_blue-300 transition duration-300 mt-8 shadow-md" disabled="" id="place-order-button">Place Order (Pay at Pickup)</button>
+<div id="thank-you-message" style="display: none;">
+                Thank you for your order! We've received your request and will contact you shortly to confirm pickup details.
+            </div>
+</section>
+</main>
+<footer class="bg-fairy_tale-300 p-4 text-center text-carnation_pink-600 mt-8 rounded-t-lg shadow-inner">
+<p>© 2025 Simply Macarons. Visit us at <a class="text-carnation_pink-700 hover:underline" href="https://simplymacarons.ca">simplymacarons.ca</a></p>
+</footer>
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50 hidden" id="email-modal">
+<div class="bg-white p-8 rounded-xl shadow-lg max-w-lg w-full relative">
+<button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold" id="close-email-modal">×</button>
+<h3 class="text-2xl font-bold text-carnation_pink-700 mb-4 text-center">Order Confirmation &amp; Invoice</h3>
+<p class="text-thistle-900 mb-4">Your order has been placed! Please copy the invoice below and send it to yourself and to <strong>simplymacaronsyyj@gmail.com</strong> for confirmation. Payment will be due at pickup.</p>
+<div class="bg-gray-100 p-4 rounded-lg border border-thistle-200 mb-4 overflow-auto max-h-96">
+<pre class="whitespace-pre-wrap text-sm text-gray-800" id="email-content"></pre>
+</div>
+<div class="flex flex-col space-y-3">
+<button class="bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-light_sky_blue-300 transition duration-300 shadow-md" id="copy-email-btn">Copy Email Content</button>
+<a class="bg-carnation_pink-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-carnation_pink-700 transition duration-300 shadow-md text-center" href="#" id="send-email-mailto-btn">Send via Mail Client (Manual)</a>
+<button class="bg-thistle-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-thistle-600 transition duration-300 shadow-md" id="close-modal-and-return-home">Return to Home</button>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutForm = document.getElementById('checkout-form');
+            const placeOrderButton = document.getElementById('place-order-button');
+            const orderSummary = document.getElementById('order-summary');
+            const summaryItemsContainer = document.getElementById('summary-items');
+            const summaryTotalPriceElement = document.getElementById('summary-total-price');
+            const thankYouMessage = document.getElementById('thank-you-message');
+
+            const emailModal = document.getElementById('email-modal');
+            const closeEmailModalBtn = document.getElementById('close-email-modal');
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const sendEmailMailtoBtn = document.getElementById('send-email-mailto-btn');
+            const closeModalAndReturnHomeBtn = document.getElementById('close-modal-and-return-home');
+            const notificationBar = document.getElementById('notification-bar');
+
+            let cart = JSON.parse(localStorage.getItem('macaronCart')) || [];
+            const products = [
+                { id: 1, name: 'Cotton Candy', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+                { id: 2, name: 'Bubble Gum', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful.jpg?raw=true' },
+                { id: 3, name: 'Fuzzy Peach', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-fuzzy-peach.jpg?raw=true' },
+                { id: 4, name: 'Watermelon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-yellow-green-blue.jpg?raw=true' },
+                { id: 5, name: 'Lavender', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-blue.jpg?raw=true' },
+                { id: 6, name: 'Earl Grey', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-white.jpg?raw=true' },
+                { id: 7, name: 'Lemon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-lemon-buttercream.jpg?raw=true' },
+                { id: 8, name: 'Guava', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pink-green-chocolate-purple.jpg?raw=true' },
+                { id: 9, name: 'Vanilla', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+                { id: 10, name: 'Cola', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+                { id: 11, name: 'Chocolate', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-double-chocolate.jpg?raw=true' },
+                { id: 12, name: 'Salted Caramel', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+                { id: 13, name: 'Cherry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-red-white-canada.jpg?raw=true' },
+                { id: 14, name: 'Banana', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-yellow-green-blue2.jpg?raw=true' },
+                { id: 15, name: 'Apple', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-lime-green.jpg?raw=true' },
+                { id: 16, name: 'Pistachio', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+                { id: 17, name: 'Strawberry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pink-and-white.jpg?raw=true' },
+                { id: 18, name: 'Raspberry', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-pretty-in-pink.jpg?raw=true' },
+                { id: 19, name: 'Mango', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful.jpg?raw=true' },
+                { id: 20, name: 'Coconut', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-gold-white-green-black.jpg?raw=true' },
+                { id: 21, name: 'Marshmallow', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-colourful-macarons.jpg?raw=true' },
+                { id: 22, name: 'Cookies and Cream', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-black-and-white.jpg?raw=true' },
+                { id: 23, name: 'Nutella', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-double-chocolate.jpg?raw=true' },
+                { id: 24, name: 'Cashew Caramel', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+                { id: 25, name: 'Crème brûlée', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-creme-brulee.jpg?raw=true' },
+                { id: 26, name: 'Cinnamon', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-holday-eggnog.jpg?raw=true' },
+                { id: 27, name: 'Red Velvet', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-red-white-canada.jpg?raw=true' },
+                { id: 28, name: 'Biscoff', price: 2.00, image: 'https://github.com/grabby/simplymacarons/blob/main/assets/images/simply-macarons-halloween-flavours.jpg?raw=true' },
+            ];
+
+            /**
+             * Displays a temporary notification message at the top of the screen.
+             * @param {string} message The message to display.
+             */
+            function showNotification(message) {
+                notificationBar.textContent = message;
+                notificationBar.classList.add('show');
+                setTimeout(() => {
+                    notificationBar.classList.remove('show');
+                }, 2000); // Hide after 2 seconds
+            }
+
+            /**
+             * Renders the order summary based on the current cart contents.
+             */
+            function renderOrderSummary() {
+                summaryItemsContainer.innerHTML = '';
+                let totalOrderPrice = 0;
+                let totalItemsCount = 0; // Total individual macarons
+
+                if (cart.length === 0) {
+                    summaryItemsContainer.innerHTML = `<p class="text-center text-thistle-700 italic">Your cart is empty. Please add items on the <a href="index.html#shop" class="text-carnation_pink-600 hover:underline">shop page</a>.</p>`;
+                    placeOrderButton.disabled = true;
+                    placeOrderButton.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    cart.forEach(item => {
+                        totalItemsCount += item.quantity;
+                    });
+
+                    const pricePerMacaron = (totalItemsCount >= 50) ? 1.80 : 2.00;
+
+                    cart.forEach(item => {
+                        const itemTotal = pricePerMacaron * item.quantity;
+                        totalOrderPrice += itemTotal;
+
+                        let quantityDisplay = '';
+                        const numBoxes = Math.floor(item.quantity / 12);
+                        const looseMacarons = item.quantity % 12;
+
+                        if (numBoxes > 0 && looseMacarons === 0) {
+                            quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12`;
+                        } else if (numBoxes > 0 && looseMacarons > 0) {
+                            quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12 + ${looseMacarons} loose`;
+                        } else {
+                            quantityDisplay = `${looseMacarons} loose`;
+                        }
+
+                        const summaryItemDiv = document.createElement('div');
+                        summaryItemDiv.classList.add('summary-item');
+                        summaryItemDiv.innerHTML = `
+                            <span>${item.name} (${quantityDisplay})</span>
+                            <span>$${itemTotal.toFixed(2)}</span>
+                        `;
+                        summaryItemsContainer.appendChild(summaryItemDiv);
+                    });
+                    placeOrderButton.disabled = false;
+                    placeOrderButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+                summaryTotalPriceElement.textContent = totalOrderPrice.toFixed(2);
+            }
+
+            // Handle form submission
+            checkoutForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                // Collect form data
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    // Removed pickupDate and pickupTime
+                    specialInstructions: document.getElementById('specialInstructions').value,
+                    cart: cart, // Include the actual cart data
+                    totalPrice: parseFloat(summaryTotalPriceElement.textContent)
+                };
+
+                console.log('Order Details:', formData);
+
+                
+// Generate email content
+                const emailSubject = `Simply Macarons Order Confirmation #${Date.now()}`; // Simple unique ID
+                const emailBody = generateInvoiceEmailBody(formData, cart);
+
+                // Populate and show the modal
+                
+
+// ✅ Send email via Resend backend
+fetch('https://simplymacarons-email-api.vercel.app/api/send-email', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    to: formData.email,
+    cc: 'simplymacaronsyyj@gmail.com',
+    subject: emailSubject,
+    html: emailBody
+  })
+})
+.then(response => {
+  if (!response.ok) throw new Error('Failed to send email');
+  console.log('Email sent!');
+})
+.catch(error => {
+  console.error('Email send error:', error);
+  showNotification('Error sending confirmation email');
+});
+
+document.getElementById('email-content')
+.textContent = emailBody;
+                emailModal.classList.remove('hidden');
+
+                // Set mailto link
+                const mailtoLink = `mailto:${formData.email}?cc=simplymacaronsyyj@gmail.com&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                sendEmailMailtoBtn.href = mailtoLink;
+
+                // Hide the form and order summary
+                checkoutForm.style.display = 'none';
+                orderSummary.style.display = 'none';
+                placeOrderButton.style.display = 'none';
+                thankYouMessage.style.display = 'none'; // Ensure the old thank you is hidden
+
+                // Clear the cart from localStorage after successful order
+                localStorage.removeItem('macaronCart');
+                cart = []; // Clear local cart array
+            });
+
+            // Helper function to generate the email body
+            function generateInvoiceEmailBody(formData, cartItems) {
+                let body = `Hello ${formData.firstName},\n\n`;
+                body += `Thank you for your order with Simply Macarons! Your order details are below.\n\n`;
+                body += `--- Your Order Details ---\n`;
+                body += `Order Date: ${new Date().toLocaleDateString()}\n`;
+                body += `Customer Name: ${formData.firstName} ${formData.lastName}\n`;
+                body += `Email: ${formData.email}\n`;
+                body += `Phone: ${formData.phone}\n`;
+                // Removed pickupDate and pickupTime from email body
+                if (formData.specialInstructions) {
+                    body += `Special Instructions: ${formData.specialInstructions}\n`;
+                }
+                body += `\n--- Items ---\n`;
+
+                let totalItemsCount = 0;
+                cartItems.forEach(item => {
+                    totalItemsCount += item.quantity;
+                });
+
+                const pricePerMacaron = (totalItemsCount >= 50) ? 1.80 : 2.00;
+
+                cartItems.forEach(item => {
+                    const itemTotal = pricePerMacaron * item.quantity;
+                    let quantityDisplay = '';
+                    const numBoxes = Math.floor(item.quantity / 12);
+                    const looseMacarons = item.quantity % 12;
+
+                    if (numBoxes > 0 && looseMacarons === 0) {
+                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12`;
+                    } else if (numBoxes > 0 && looseMacarons > 0) {
+                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12 + ${looseMacarons} loose`;
+                    } else {
+                        quantityDisplay = `${looseMacarons} loose`;
+                    }
+                    body += `${item.name} (${quantityDisplay}) - $${itemTotal.toFixed(2)}\n`;
+                });
+
+                body += `\n--- Total ---\n`;
+                body += `Estimated Total: $${formData.totalPrice.toFixed(2)}\n`;
+                body += `Payment: Due at pickup.\n\n`;
+                body += `We will contact you shortly to confirm your pickup details.\n\n`;
+                body += `Thank you,\nSimply Macarons Team\nhttps://simplymacarons.ca`;
+                return body;
+            }
+
+            // Event listener for Copy Email button
+            copyEmailBtn.addEventListener('click', () => {
+                const emailContent = document.getElementById('email-content').textContent;
+                document.execCommand('copy'); // Use deprecated execCommand for clipboard due to iframe restrictions
+                showNotification('Email content copied to clipboard!');
+            });
+
+            // Event listener for Close Modal button
+            closeEmailModalBtn.addEventListener('click', () => {
+                emailModal.classList.add('hidden');
+            });
+
+            // Event listener for Return to Home button
+            closeModalAndReturnHomeBtn.addEventListener('click', () => {
+                window.location.href = 'index.html'; // Redirect to home page
+            });
+
+            // Enable/disable place order button based on form validity and cart content
+            checkoutForm.addEventListener('input', () => {
+                const isFormValid = checkoutForm.checkValidity();
+                if (isFormValid && cart.length > 0) {
+                    placeOrderButton.disabled = false;
+                    placeOrderButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    placeOrderButton.disabled = true;
+                    placeOrderButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            });
+
+            // Initial render of the summary
+            renderOrderSummary();
+        });
+    </script>
+</body>
+</html>
