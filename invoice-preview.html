@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simply Macarons - Invoice Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            thistle: { DEFAULT: '#cdb4db', 100: '#f5f0f8', 200: '#ebe1f0', 300: '#e0d2e9', 400: '#d6c2e2', 500: '#cdb4db', 600: '#a87ec1', 700: '#824ea1', 800: '#57346b', 900: '#2b1a36' },
+            fairy_tale: { DEFAULT: '#ffc8dd', 100: '#fff4f8', 200: '#ffe9f1', 300: '#ffddea', 400: '#ffd2e3', 500: '#ffc8dd', 600: '#ff6ca4', 700: '#ff116c', 800: '#b60046', 900: '#5b0023' },
+            carnation_pink: { DEFAULT: '#ffafcc', 100: '#ffeff5', 200: '#ffdeea', 300: '#ffcee0', 400: '#ffbed6', 500: '#ffafcc', 600: '#ff5895', 700: '#ff025f', 800: '#ab003f', 900: '#56001f' },
+            light_sky_blue: { DEFAULT: '#a2d2ff', 100: '#edf6ff', 200: '#daedff', 300: '#c8e4ff', 400: '#b6dcff', 500: '#a2d2ff', 600: '#50aaff', 700: '#0082fb', 800: '#0056a7', 900: '#002b54' },
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-inter bg-fairy_tale-100 text-thistle-900 p-6">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-carnation_pink-700 border-b border-fairy_tale-300 pb-4 mb-6">Order Summary</h1>
+
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-thistle-700 mb-2">Customer Info</h2>
+      <p id="customerName">Name: ...</p>
+      <p id="customerEmail">Email: ...</p>
+      <p id="customerPhone">Phone: ...</p>
+      <p id="customerNotes">Instructions: ...</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold text-thistle-700 mb-2">Items</h2>
+      <div id="itemsList" class="divide-y divide-fairy_tale-200"></div>
+      <p class="text-right font-bold text-xl mt-4">Total: $<span id="totalAmount">0.00</span></p>
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('macaronCart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const pricePer = totalItems >= 50 ? 1.80 : 2.00;
+    let total = 0;
+
+    const itemsList = document.getElementById('itemsList');
+    cart.forEach(item => {
+      const itemTotal = item.quantity * pricePer;
+      total += itemTotal;
+
+      const boxes = Math.floor(item.quantity / 12);
+      const loose = item.quantity % 12;
+      let qtyText = '';
+      if (boxes > 0 && loose === 0) qtyText = `${boxes} Box${boxes > 1 ? 'es' : ''} of 12`;
+      else if (boxes > 0 && loose > 0) qtyText = `${boxes} Box${boxes > 1 ? 'es' : ''} of 12 + ${loose} loose`;
+      else qtyText = `${loose} loose`;
+
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'flex justify-between py-2';
+      itemDiv.innerHTML = `<span>${item.name} (${qtyText})</span><span>$${itemTotal.toFixed(2)}</span>`;
+      itemsList.appendChild(itemDiv);
+    });
+    document.getElementById('totalAmount').textContent = total.toFixed(2);
+    document.getElementById('customerName').textContent = `Name: ${localStorage.getItem('invoiceName') || '...'}`;
+    document.getElementById('customerEmail').textContent = `Email: ${localStorage.getItem('invoiceEmail') || '...'}`;
+    document.getElementById('customerPhone').textContent = `Phone: ${localStorage.getItem('invoicePhone') || '...'}`;
+    document.getElementById('customerNotes').textContent = `Instructions: ${localStorage.getItem('invoiceNotes') || '...'}`;
+  </script>
+</body>
+</html>

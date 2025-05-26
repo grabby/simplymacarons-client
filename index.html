@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simply Macarons - Exquisite Treats</title>
+    <title>Simply Macarons - Macarons Victoria BC - Exquisite Treats</title>
+    <meta name="description" content="Discover Simply Macarons, your source for handcrafted macarons in Victoria, BC. We offer a wide variety of exquisite flavors, including dairy-free and gluten-free options. Order your macarons today!">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -69,7 +70,8 @@
         }
 
         .add-to-cart {
-            background-color: #b6dcff; /* light_sky_blue.400 */
+            /* Changed to a darker blue */
+            background-color: #0056a7; /* light_sky_blue.800 */
             color: white;
             border: none;
             padding: 0.75rem 1.5rem; /* Tailwind equivalent of px-6 py-3 */
@@ -85,7 +87,7 @@
         }
 
         .add-to-cart:hover {
-            background-color: #c8e4ff; /* light_sky_blue.300 */
+            background-color: #002b54; /* light_sky_blue.900 */
             transform: translateY(-1px);
         }
 
@@ -327,7 +329,7 @@
             margin-bottom: 1.5rem;
         }
 
-        #cart-sidebar .cart-item-sidebar {
+        .cart-item-sidebar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -335,33 +337,33 @@
             border-bottom: 1px solid #ebe1f0; /* thistle.200 */
         }
 
-        #cart-sidebar .cart-item-sidebar:last-child {
+        .cart-item-sidebar:last-child {
             border-bottom: none;
         }
 
-        #cart-sidebar .item-details {
+        .cart-item-sidebar .item-details {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
-        #cart-sidebar .item-details span {
+        .cart-item-sidebar .item-details span {
             font-size: 1rem;
             color: #2b1a36;
         }
 
-        #cart-sidebar .item-details .price-per-unit {
+        .cart-item-sidebar .item-details .price-per-unit {
             font-size: 0.875rem; /* text-sm */
             color: #824ea1; /* thistle.700 */
         }
 
-        #cart-sidebar .quantity-controls {
+        .cart-item-sidebar .quantity-controls {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        #cart-sidebar .quantity-btn {
+        .cart-item-sidebar .quantity-btn {
             background-color: #f5f0f8; /* thistle.100 */
             color: #57346b; /* thistle.800 */
             border: 1px solid #e0d2e9; /* thistle.300 */
@@ -376,17 +378,36 @@
             transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
         }
 
-        #cart-sidebar .quantity-btn:hover {
+        .cart-item-sidebar .quantity-btn:hover {
             background-color: #ebe1f0; /* thistle.200 */
             border-color: #cdb4db; /* thistle.500 */
         }
 
-        #cart-sidebar .quantity-display {
+        .cart-item-sidebar .quantity-display {
             font-size: 1rem;
             font-weight: 600;
             color: #2b1a36;
             min-width: 20px;
             text-align: center;
+        }
+
+        /* New style for remove button in sidebar */
+        .remove-from-sidebar-btn {
+            background: none;
+            border: none;
+            color: #ff025f; /* carnation_pink.700 */
+            cursor: pointer;
+            font-size: 1.5rem; /* Larger for easier tap */
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+            margin-left: 0.75rem; /* Space from quantity controls */
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+        .remove-from-sidebar-btn:hover {
+            color: #ab003f; /* carnation_pink.800 */
+            background-color: #f5f0f8; /* thistle.100 */
         }
 
         #cart-sidebar .cart-discount-message {
@@ -460,6 +481,7 @@
                         fairy_tale: { DEFAULT: '#ffc8dd', 100: '#fff4f8', 200: '#ffe9f1', 300: '#ffddea', 400: '#ffd2e3', 500: '#ffc8dd', 600: '#ff6ca4', 700: '#ff116c', 800: '#b60046', 900: '#5b0023' },
                         carnation_pink: { DEFAULT: '#ffafcc', 100: '#ffeff5', 200: '#ffdeea', 300: '#ffcee0', 400: '#ffbed6', 500: '#ffafcc', 600: '#ff5895', 700: '#ff025f', 800: '#ab003f', 900: '#56001f' },
                         uranian_blue: { DEFAULT: '#bde0fe', 100: '#f2f9ff', 200: '#e5f3ff', 300: '#d8ecfe', 400: '#cbe6fe', 500: '#bde0fe', 600: '#66b6fd', 700: '#0f8dfb', 800: '#035eaf', 900: '#012f57' },
+                        // Modified light_sky_blue for darker "Add to Cart" button
                         light_sky_blue: { DEFAULT: '#a2d2ff', 100: '#edf6ff', 200: '#daedff', 300: '#c8e4ff', 400: '#b6dcff', 500: '#a2d2ff', 600: '#50aaff', 700: '#0082fb', 800: '#0056a7', 900: '#002b54' },
                     }
                 }
@@ -484,11 +506,11 @@
     </header>
 
     <main class="container mx-auto p-4 mt-4">
-        <section id="hero" class="bg-gradient-to-r from-fairy_tale-500 to-uranian_blue-500 text-white p-16 text-center rounded-xl shadow-lg mb-8">
+        <section id="hero" class="bg-gradient-to-r from-thistle-800 to-carnation_pink-800 text-white p-16 text-center rounded-xl shadow-lg mb-8">
             <div class="hero-content">
-                <h2 class="text-5xl font-extrabold mb-4 leading-tight">Handcrafted Macarons in Victoria, BC</h2>
+                <h2 class="text-5xl font-extrabold mb-4 leading-tight">Handcrafted Macarons in Victoria, BC 🇨🇦</h2>
                 <p class="text-xl mb-8 opacity-90">Indulge in our exquisite variety of flavors, made with local ingredients and available with dietary options like dairy-free and gluten-free.</p>
-                <a href="#shop" class="inline-block bg-white text-carnation_pink-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-fairy_tale-100 transition duration-300 shadow-md">Explore Our Flavors</a>
+                <a href="#shop" class="inline-block bg-white text-carnation_pink-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-fairy_tale-100 transition duration-300 shadow-md">Order Macarons</a>
             </div>
         </section>
 
@@ -511,12 +533,13 @@
             <div id="cart-total" class="text-right text-2xl font-bold text-carnation_pink-700 mb-6">
                 <strong>Total: $<span id="total-price">0.00</span></strong>
             </div>
-            <a href="order.html" id="checkout-button" class="w-full bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-light_sky_blue-300 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md text-center" disabled>Proceed to Checkout</a>
+            <a href="order.html" id="checkout-button" class="w-full bg-light_sky_blue-800 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-light_sky_blue-900 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md text-center" disabled>Proceed to Checkout</a>
         </section>
     </main>
 
     <footer class="bg-fairy_tale-300 p-4 text-center text-carnation_pink-600 mt-8 rounded-t-lg shadow-inner">
         <p>&copy; 2025 Simply Macarons. Visit us at <a href="https://simplymacarons.ca" class="text-carnation_pink-700 hover:underline">simplymacarons.ca</a></p>
+        <p class="mt-2 text-sm">We do not process payments online - Payment can be made when you pick up your order. We accept Cash, E-Transfer, and Credit Card.</p>
     </footer>
 
     <div id="sticky-cart-bar" class="container mx-auto">
@@ -540,7 +563,7 @@
             <span>Total:</span>
             <span id="sidebar-total-price">$0.00</span>
         </div>
-        <a href="order.html" class="checkout-btn-sidebar">Checkout</a>
+        <a href="order.html" class="checkout-btn-sidebar bg-light_sky_blue-800 hover:bg-light_sky_blue-900">Checkout</a>
         <button class="clear-cart-btn-sidebar" id="clear-cart-sidebar-btn">Clear Cart</button>
     </div>
 
@@ -573,6 +596,9 @@
         // Initialize the cart as an empty array
         let cart = [];
         let isGridView = true; // State to track current view mode
+        const BOX_SIZE = 12; // Define box size for adding to cart
+        const BOX_PRICE = 24.00; // Price for one box of 12 macarons
+        const DISCOUNT_THRESHOLD = 50; // Macarons needed for discount
 
         // Define the list of products available for sale
         const products = [
@@ -646,7 +672,7 @@
          */
         function renderProducts() {
             productGrid.innerHTML = ''; // Clear existing content
-            const BOX_PRICE = 24.00; // $2.00 per macaron * 12
+            
 
             // Adjust product grid container classes based on view mode
             if (isGridView) {
@@ -672,7 +698,7 @@
                         <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm" onerror="this.onerror=null;this.src='https://placehold.co/400x300/FFC8DD/AB003F?text=Image+Error';">
                         <h3 class="text-xl font-semibold text-carnation_pink-700 mb-2">${product.name}</h3>
                         <p class="price text-lg font-bold text-carnation_pink-600 mb-4">Box of 12: $${BOX_PRICE.toFixed(2)}</p>
-                        <button class="add-to-cart bg-light_sky_blue-400 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-light_sky_blue-300 transition duration-300 shadow-md" data-id="${product.id}">Add to Cart</button>
+                        <button class="add-to-cart bg-light_sky_blue-800 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-light_sky_blue-900 transition duration-300 shadow-md" data-id="${product.id}">Add to Cart</button>
                     `;
                 } else {
                     // List view: no image, simplified row
@@ -682,7 +708,7 @@
                             <h3 class="text-thistle-900">${product.name}</h3>
                             <p class="price text-thistle-700">Box of 12: $${BOX_PRICE.toFixed(2)}</p>
                         </div>
-                        <button class="add-to-cart bg-light_sky_blue-400 text-white px-3 py-2 rounded-md text-sm font-semibold hover:bg-light_sky_blue-300 transition duration-300 shadow-md" data-id="${product.id}">Add</button>
+                        <button class="add-to-cart bg-light_sky_blue-800 text-white px-3 py-2 rounded-md text-sm font-semibold hover:bg-light_sky_blue-900 transition duration-300 shadow-md" data-id="${product.id}">Add</button>
                     `;
                 }
                 productItemDiv.innerHTML = innerHTMLContent;
@@ -703,7 +729,7 @@
         function addToCart(event) {
             const productId = parseInt(event.target.dataset.id);
             const selectedProduct = products.find(product => product.id === productId);
-            const BOX_SIZE = 12; // Define box size for adding to cart
+            
 
             if (selectedProduct) {
                 const existingItem = cart.find(item => item.id === productId);
@@ -715,36 +741,37 @@
                     cart.push({ ...selectedProduct, quantity: BOX_SIZE });
                 }
                 updateCart(); // Update the cart display
-                showNotification(`${selectedProduct.name} (Box of 12) added to cart!`); // Show notification
+                showNotification(`${selectedProduct.name} (Box of ${BOX_SIZE}) added to cart!`); // Show notification
             } else {
                 console.error('Product not found for ID:', productId);
             }
         }
 
         /**
-         * Increments the quantity of a product in the cart.
+         * Increments the quantity of a product in the cart by a box size (12).
          * @param {number} productId The ID of the product to increment.
          */
         function incrementQuantity(productId) {
             const item = cart.find(i => i.id === productId);
             if (item) {
-                item.quantity += 1;
+                item.quantity += BOX_SIZE; // Increment by a box size
                 updateCart();
             }
         }
 
         /**
-         * Decrements the quantity of a product in the cart.
-         * If quantity drops to 0, the item is removed.
+         * Decrements the quantity of a product in the cart by a box size (12).
+         * If quantity drops to 0 or below, the item is removed.
          * @param {number} productId The ID of the product to decrement.
          */
         function decrementQuantity(productId) {
             const itemIndex = cart.findIndex(i => i.id === productId);
             if (itemIndex > -1) {
-                if (cart[itemIndex].quantity > 1) {
-                    cart[itemIndex].quantity -= 1;
+                // If current quantity is greater than a box, decrement by a box
+                if (cart[itemIndex].quantity > BOX_SIZE) {
+                    cart[itemIndex].quantity -= BOX_SIZE;
                 } else {
-                    // If quantity is 1, remove the item
+                    // If quantity is one box or less, remove the item
                     cart.splice(itemIndex, 1);
                 }
                 updateCart();
@@ -780,17 +807,20 @@
             // Clear current cart items display for main cart and sidebar
             cartItemsContainer.innerHTML = '';
             sidebarCartItems.innerHTML = '';
-            let totalPrice = 0;
+            let totalPrice = 0; // This will be the grand total for all items
             let totalItems = 0; // Total count of individual macarons
 
-            // Calculate total quantity of individual macarons in the cart first
             cart.forEach(item => {
                 totalItems += item.quantity;
             });
 
-            // Determine the price per macaron based on the total quantity
-            // Base price is $2.00, discounted to $1.80 after 50 macarons
-            const pricePerMacaron = (totalItems >= 50) ? 1.80 : 2.00;
+            const DISCOUNT_THRESHOLD = 50;
+            const BOX_SIZE = 12;
+            const BOX_PRICE = 24.00; // Original price for 12 macarons
+            const DISCOUNTED_MACARON_PRICE = 1.80; // Discounted price per macaron
+            const DISCOUNTED_BOX_PRICE = DISCOUNTED_MACARON_PRICE * BOX_SIZE; // 21.60
+
+            let isDiscountApplied = (totalItems >= DISCOUNT_THRESHOLD);
 
             if (cart.length === 0) {
                 // Main cart section
@@ -815,61 +845,84 @@
                 stickyCartBar.style.display = 'flex';
 
                 // Discount message logic for sidebar
-                if (totalItems < 50) {
+                if (totalItems < DISCOUNT_THRESHOLD) {
                     sidebarDiscountMessage.style.display = 'block';
-                    macaronsNeededForDiscount.textContent = 50 - totalItems;
+                    const macaronsRemaining = DISCOUNT_THRESHOLD - totalItems;
+                    const boxesNeeded = Math.ceil(macaronsRemaining / BOX_SIZE);
+                    macaronsNeededForDiscount.textContent = boxesNeeded;
+                    sidebarDiscountMessage.innerHTML = `Add <span id="macarons-needed-for-discount" class="font-bold">${boxesNeeded}</span> more box${boxesNeeded > 1 ? 'es' : ''} for a 10% discount!`;
                 } else {
                     sidebarDiscountMessage.style.display = 'none';
                 }
 
                 // Render each item in the cart for both main cart and sidebar
                 cart.forEach(item => {
-                    const itemTotal = pricePerMacaron * item.quantity;
-                    totalPrice += itemTotal; // Sum up the calculated item totals
+                    let itemDisplayPrice; // Price to display for this specific item line
+                    let currentItemMacaronPrice; // Macaron price for this item's calculation
 
-                    let quantityDisplay = '';
-                    const numBoxes = Math.floor(item.quantity / 12);
-                    const looseMacarons = item.quantity % 12;
+                    if (isDiscountApplied) {
+                        currentItemMacaronPrice = DISCOUNTED_MACARON_PRICE;
+                    } else {
+                        currentItemMacaronPrice = 2.00; // Original price per macaron
+                    }
 
-                    if (numBoxes > 0 && looseMacarons === 0) {
-                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12`;
-                    } else if (numBoxes > 0 && looseMacarons > 0) {
-                        quantityDisplay = `${numBoxes} Box${numBoxes > 1 ? 'es' : ''} of 12 + ${looseMacarons} loose`;
-                    } else { // This case should ideally not be hit if adding only by box, but for robustness
-                        quantityDisplay = `${looseMacarons} loose`;
+                    // Calculate the total price for this item based on its quantity and the determined macaron price
+                    itemDisplayPrice = currentItemMacaronPrice * item.quantity;
+                    totalPrice += itemDisplayPrice; // Add to the grand total
+
+                    let quantityDisplayMainCart = '';
+                    const numBoxesMainCart = Math.floor(item.quantity / BOX_SIZE);
+                    const looseMacaronsMainCart = item.quantity % BOX_SIZE;
+
+                    if (numBoxesMainCart > 0 && looseMacaronsMainCart === 0) {
+                        quantityDisplayMainCart = `${numBoxesMainCart} Box${numBoxesMainCart > 1 ? 'es' : ''} of ${BOX_SIZE}`;
+                    } else if (numBoxesMainCart > 0 && looseMacaronsMainCart > 0) {
+                        quantityDisplayMainCart = `${numBoxesMainCart} Box${numBoxesMainCart > 1 ? 'es' : ''} of ${BOX_SIZE} + ${looseMacaronsMainCart} loose`;
+                    } else {
+                        quantityDisplayMainCart = `${looseMacaronsMainCart} loose`;
                     }
 
                     // For Main Cart Section
                     const cartItemDiv = document.createElement('div');
                     cartItemDiv.classList.add('cart-item', 'flex', 'justify-content-between', 'align-items-center', 'py-3', 'border-b', 'border-fairy_tale-800');
                     cartItemDiv.innerHTML = `
-                        <span class="text-lg text-thistle-900">${item.name} (${quantityDisplay})</span>
-                        <span class="text-lg font-semibold text-carnation_pink-600">$${itemTotal.toFixed(2)}</span>
+                        <span class="text-lg text-thistle-900">${item.name} (${quantityDisplayMainCart})</span>
+                        <span class="text-lg font-semibold text-carnation_pink-600">$${itemDisplayPrice.toFixed(2)}</span>
                         <button class="remove-from-cart text-carnation_pink-700 hover:text-carnation_pink-800 transition duration-300" data-id="${item.id}">Remove</button>
                     `;
                     const removeButton = cartItemDiv.querySelector('.remove-from-cart');
                     removeButton.addEventListener('click', () => removeFromCart(item.id));
                     cartItemsContainer.appendChild(cartItemDiv);
 
-                    // For Sidebar Cart
+                    // For Sidebar Cart - Quantity displayed in boxes and price per box
+                    const numBoxesSidebar = Math.ceil(item.quantity / BOX_SIZE); // Display current quantity in terms of boxes
+                    let sidebarPricePerUnitHtml = '';
+                    if (isDiscountApplied) {
+                        sidebarPricePerUnitHtml = `<span class="line-through text-gray-500">$${BOX_PRICE.toFixed(2)}/box</span> <span class="font-bold text-green-600">$${DISCOUNTED_BOX_PRICE.toFixed(2)}/box</span>`;
+                    } else {
+                        sidebarPricePerUnitHtml = `$${BOX_PRICE.toFixed(2)}/box`;
+                    }
+
                     const sidebarItemDiv = document.createElement('div');
                     sidebarItemDiv.classList.add('cart-item-sidebar');
                     sidebarItemDiv.innerHTML = `
                         <div class="item-details">
                             <span>${item.name}</span>
-                            <span class="price-per-unit">$${pricePerMacaron.toFixed(2)} each</span>
+                            <span class="price-per-unit">${sidebarPricePerUnitHtml}</span>
                         </div>
                         <div class="quantity-controls">
                             <button class="quantity-btn decrement-btn" data-id="${item.id}">-</button>
-                            <span class="quantity-display">${item.quantity}</span>
+                            <span class="quantity-display">${numBoxesSidebar}</span>
                             <button class="quantity-btn increment-btn" data-id="${item.id}">+</button>
                         </div>
+                        <button class="remove-from-sidebar-btn" data-id="${item.id}">&times;</button>
                     `;
                     sidebarCartItems.appendChild(sidebarItemDiv);
 
-                    // Add event listeners for sidebar quantity buttons
+                    // Add event listeners for sidebar quantity buttons and remove button
                     sidebarItemDiv.querySelector('.increment-btn').addEventListener('click', () => incrementQuantity(item.id));
                     sidebarItemDiv.querySelector('.decrement-btn').addEventListener('click', () => decrementQuantity(item.id));
+                    sidebarItemDiv.querySelector('.remove-from-sidebar-btn').addEventListener('click', () => removeFromCart(item.id));
                 });
             }
 
