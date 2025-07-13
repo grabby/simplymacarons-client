@@ -1,0 +1,245 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+
+/* Custom Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Quicksand', sans-serif;
+    color: #374151;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-macaron-500 hover:bg-macaron-600 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-macaron hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-macaron-600 border-2 border-macaron-500 font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-soft hover:shadow-macaron;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent hover:bg-macaron-50 text-macaron-600 border-2 border-macaron-300 font-medium py-2 px-4 rounded-full transition-all duration-300;
+  }
+  
+  .macaron-card {
+    @apply bg-white rounded-2xl shadow-soft hover:shadow-macaron transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col;
+  }
+  
+  .macaron-image {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.75rem;
+    transition: transform 0.3s;
+  }
+  
+  .hero-macaron-image {
+    aspect-ratio: 1/1;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.75rem;
+    transition: transform 0.3s;
+  }
+  
+  .macaron-card:hover .macaron-image,
+  .macaron-card:hover .hero-macaron-image {
+    @apply scale-105;
+  }
+  
+  .quantity-input {
+    @apply w-16 h-10 text-center border-2 border-gray-200 rounded-lg focus:border-macaron-400 focus:outline-none transition-colors duration-200;
+  }
+  
+  .quantity-btn {
+    @apply w-10 h-10 rounded-full bg-gray-100 hover:bg-macaron-100 flex items-center justify-center transition-all duration-200 hover:scale-105;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #e86b6b;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 50%;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    z-index: 10;
+    border: 2px solid #fff;
+    transition: transform 0.15s;
+  }
+  .cart-badge.pop {
+    transform: scale(1.15);
+  }
+  
+  .hero-gradient {
+    background: linear-gradient(135deg, #fef7f7 0%, #fce7f3 50%, #f3e8ff 100%);
+  }
+  
+  .scalloped-border {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
+  
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+  }
+  
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+  }
+  
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .backdrop-blur-soft {
+    backdrop-filter: blur(8px);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #d94a4a 0%, #e86b6b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f7c2c2;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e86b6b;
+}
+
+/* Form styles */
+.form-input {
+  @apply w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-macaron-400 focus:outline-none transition-colors duration-200;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+.form-error {
+  @apply text-red-500 text-sm mt-1;
+}
+
+/* Blog styles */
+.blog-content {
+  @apply prose prose-lg max-w-none;
+}
+
+.blog-content h1 {
+  @apply text-3xl font-bold text-macaron-800 mb-6;
+}
+
+.blog-content h2 {
+  @apply text-2xl font-semibold text-macaron-700 mb-4 mt-8;
+}
+
+.blog-content h3 {
+  @apply text-xl font-medium text-macaron-600 mb-3 mt-6;
+}
+
+.blog-content p {
+  @apply text-gray-700 leading-relaxed mb-4;
+}
+
+.blog-content ul, .blog-content ol {
+  @apply mb-4 pl-6;
+}
+
+.blog-content li {
+  @apply mb-2;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-macaron-300 pl-4 italic text-gray-600 my-6;
+}
+
+.blog-content img {
+  @apply rounded-lg shadow-soft my-6;
+}
+
+.blog-content a {
+  @apply text-macaron-600 hover:text-macaron-700 underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .hero-gradient {
+    background: linear-gradient(180deg, #fef7f7 0%, #fce7f3 100%);
+  }
+  
+  .macaron-card {
+    @apply rounded-xl;
+  }
+  
+  .btn-primary, .btn-secondary {
+    @apply py-2 px-4 text-sm;
+  }
+} 
+
+.product-card {
+  height: 100%;
+} 
