@@ -243,3 +243,15 @@
 .product-card {
   height: 100%;
 } 
+
+/* Tabler Icons custom class to prevent font override */
+.icon-tabler {
+  font-family: 'tabler-icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  /* Prevent Tailwind or other frameworks from overriding */
+} 
