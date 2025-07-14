@@ -79,17 +79,6 @@ export const macaronFlavors = [
     color: 'pastel-lavender',
     category: 'floral'
   },
-
-  {
-    id: 'coffee',
-    name: 'Coffee',
-    description: 'Rich coffee with espresso ganache',
-    price: 2.00,
-    minQuantity: 10,
-    image: '/src/assets/images/simply-macarons-black-and-white.jpg',
-    color: 'pastel-blue',
-    category: 'gourmet'
-  },
   {
     id: 'matcha',
     name: 'Matcha Green Tea',
@@ -133,7 +122,7 @@ export const macaronFlavors = [
   {
     id: 'bubble-gum',
     name: 'Bubble Gum',
-    description: 'Sweet bubble gum with nostalgic taste',
+    description: 'The classic bubble gum with nostalgic taste',
     price: 2.00,
     minQuantity: 10,
     image: '/src/assets/images/simply-macarons-pink-and-white.jpg',
@@ -173,7 +162,7 @@ export const macaronFlavors = [
   {
     id: 'cola',
     name: 'Cola',
-    description: 'Classic cola with fizzy undertones',
+    description: 'Classic refreshing cola flavour',
     price: 2.00,
     minQuantity: 10,
     image: '/src/assets/images/simply-macarons-black-and-blue.jpg',
@@ -193,7 +182,7 @@ export const macaronFlavors = [
   {
     id: 'apple',
     name: 'Apple',
-    description: 'Crisp apple with cinnamon hint',
+    description: 'Crisp, sweet green apple',
     price: 2.00,
     minQuantity: 10,
     image: '/src/assets/images/simply-macarons-colourful.jpg',
