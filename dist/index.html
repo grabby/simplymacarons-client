@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Macarons - Artisanal French Macarons in Victoria, BC</title>
+    <meta name="description" content="Handcrafted French macarons made fresh daily in Victoria, BC. Order online for pickup or delivery. Classic and unique flavors available.">
+    <meta name="keywords" content="macarons, French macarons, Victoria, BC, bakery, artisanal, delivery, pickup">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simplymacarons.ca/">
+    <meta property="og:title" content="Simply Macarons - Artisanal French Macarons">
+    <meta property="og:description" content="Handcrafted French macarons made fresh daily in Victoria, BC. Order online for pickup or delivery.">
+    <meta property="og:image" content="https://simplymacarons.ca/wp-content/uploads/2023/01/vanilla-macaron.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://simplymacarons.ca/">
+    <meta property="twitter:title" content="Simply Macarons - Artisanal French Macarons">
+    <meta property="twitter:description" content="Handcrafted French macarons made fresh daily in Victoria, BC. Order online for pickup or delivery.">
+    <meta property="twitter:image" content="https://simplymacarons.ca/wp-content/uploads/2023/01/vanilla-macaron.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="module" crossorigin src="/SimplyMacarons/assets/cart-DyeD8E41.js"></script>
+  <script type="module" crossorigin src="/SimplyMacarons/assets/main-Cuw5c9Wu.js"></script>
+  <link rel="stylesheet" crossorigin href="/SimplyMacarons/assets/cart-Dq4GCKbD.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-soft sticky top-0 z-50 backdrop-blur-soft">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-macaron-400 to-macaron-600 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">SM</span>
+                        </div>
+                        <span class="font-serif text-xl font-semibold text-macaron-700">Simply Macarons</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-macaron-600 transition-colors duration-200">Home</a>
+                    <a href="/#flavors" class="text-gray-700 hover:text-macaron-600 transition-colors duration-200">Flavors</a>
+                    <a href="/blog.html" class="text-gray-700 hover:text-macaron-600 transition-colors duration-200">Blog</a>
+                    <a href="/#about" class="text-gray-700 hover:text-macaron-600 transition-colors duration-200">About</a>
+                    <a href="/#contact" class="text-gray-700 hover:text-macaron-600 transition-colors duration-200">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="/cart.html" class="relative">
+                        <svg class="w-6 h-6 text-gray-700 hover:text-macaron-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span id="cart-count" class="cart-badge" style="display: none;">0</span>
+                    </a>
+                    
+                    <button class="md:hidden" id="mobile-menu-button">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/" class="block px-3 py-2 text-gray-700 hover:text-macaron-600 transition-colors duration-200">Home</a>
+                <a href="/#flavors" class="block px-3 py-2 text-gray-700 hover:text-macaron-600 transition-colors duration-200">Flavors</a>
+                <a href="/blog.html" class="block px-3 py-2 text-gray-700 hover:text-macaron-600 transition-colors duration-200">Blog</a>
+                <a href="/#about" class="block px-3 py-2 text-gray-700 hover:text-macaron-600 transition-colors duration-200">About</a>
+                <a href="/#contact" class="block px-3 py-2 text-gray-700 hover:text-macaron-600 transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-pastel-pink rounded-full opacity-20 floating-animation"></div>
+            <div class="absolute top-40 right-20 w-24 h-24 bg-pastel-lavender rounded-full opacity-20 floating-animation" style="animation-delay: -2s;"></div>
+            <div class="absolute bottom-40 left-20 w-20 h-20 bg-pastel-mint rounded-full opacity-20 floating-animation" style="animation-delay: -4s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-macaron-800 mb-6 leading-tight">
+                        Artisanal French
+                        <span class="gradient-text">Macarons</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Handcrafted with love in Victoria, BC. Each delicate macaron is made fresh daily using traditional French techniques and the finest ingredients.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="/#flavors" class="btn-primary">
+                            Order Now
+                        </a>
+                        <a href="/blog.html" class="btn-secondary">
+                            Read Our Blog
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 flex items-center justify-center lg:justify-start space-x-8 text-sm text-gray-600">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-macaron-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Fresh Daily</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-macaron-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Local Delivery</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-macaron-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>12+ Flavors</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- Macaron Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="macaron-card p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                                <img src="/SimplyMacarons/assets/simply-macarons-pink-and-white-Db7SuyqT.jpg" alt="Vanilla Bean Macaron" class="macaron-image rounded-xl">
+                            </div>
+                            <div class="macaron-card p-4 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                                <img src="/SimplyMacarons/assets/simply-macarons-pretty-in-pink-IZMjImYq.jpg" alt="Strawberry Macaron" class="macaron-image rounded-xl">
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <div class="macaron-card p-4 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                                <img src="/SimplyMacarons/assets/simply-macarons-black-and-blue-CP0hmnli.jpg" alt="Lavender Macaron" class="macaron-image rounded-xl">
+                            </div>
+                            <div class="macaron-card p-4 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                                <img src="/SimplyMacarons/assets/simply-macarons-yellow-green-blue-DxU1AhZP.jpg" alt="Matcha Macaron" class="macaron-image rounded-xl">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Video Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <video 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline
+                    class="w-full rounded-2xl shadow-macaron"
+                    poster="/SimplyMacarons/assets/simply-macarons-colourful-macarons-CVtwn4Ej.jpg">
+                    <source src="/SimplyMacarons/assets/simplymacarons-herovid-ijpx0i8W.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-macaron-800 mb-4">Simple Pricing</h2>
+                <p class="text-xl text-gray-600">Quality macarons at fair prices</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-pastel-pink to-pastel-lavender p-8 rounded-2xl text-center">
+                    <h3 class="text-2xl font-bold text-macaron-800 mb-4">Individual</h3>
+                    <div class="text-4xl font-bold text-macaron-600 mb-2">$2.00</div>
+                    <p class="text-gray-600 mb-6">per macaron</p>
+                    <ul class="text-left space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Minimum 10 per flavor
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Fresh daily
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            All flavors available
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-macaron-500 to-macaron-600 p-8 rounded-2xl text-center text-white relative transform scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-sm font-bold">BEST VALUE</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Bulk Discount</h3>
+                    <div class="text-4xl font-bold mb-2">$1.85</div>
+                    <p class="mb-6 opacity-90">per macaron (60+ total)</p>
+                    <ul class="text-left space-y-2 opacity-90">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Save $0.15 per macaron
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Perfect for events
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Mix and match flavors
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-pastel-mint to-pastel-blue p-8 rounded-2xl text-center">
+                    <h3 class="text-2xl font-bold text-macaron-800 mb-4">Delivery</h3>
+                    <div class="text-4xl font-bold text-macaron-600 mb-2">$5-12</div>
+                    <p class="text-gray-600 mb-6">based on location</p>
+                    <ul class="text-left space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Victoria core: $5
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Greater Victoria: $8
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-macaron-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Peninsula: $12
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavors Section -->
+    <section id="flavors" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-macaron-800 mb-4">Our Flavors</h2>
+                <p class="text-xl text-gray-600">Discover our handcrafted selection of classic and unique macaron flavors</p>
+            </div>
+            
+            <div id="flavors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Flavors will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-macaron-800 mb-6">Our Story</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Simply Macarons began as a passion project in our home kitchen in Victoria, BC. What started with a simple desire to create the perfect French macaron has grown into a beloved local business.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        We use only the finest ingredients - fresh eggs, pure almond flour, and real fruit extracts. Each macaron is handcrafted using traditional French techniques, ensuring that delicate texture and perfect flavor balance that makes these treats so special.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Whether you're celebrating a special occasion, hosting an event, or simply treating yourself, our macarons bring a touch of Parisian elegance to every moment.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="/#flavors" class="btn-primary">
+                            Order Today
+                        </a>
+                        <a href="/blog.html" class="btn-secondary">
+                            Read Our Blog
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-pastel-peach to-pastel-yellow p-8 rounded-2xl">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-macaron-700 mb-2">12+</div>
+                                <div class="text-gray-600">Unique Flavors</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-macaron-700 mb-2">100%</div>
+                                <div class="text-gray-600">Fresh Daily</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-macaron-700 mb-2">Local</div>
+                                <div class="text-gray-600">Victoria Made</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-macaron-700 mb-2">5★</div>
+                                <div class="text-gray-600">Customer Rated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-macaron-800 mb-4">Get in Touch</h2>
+                <p class="text-xl text-gray-600">Ready to order? Have questions? We'd love to hear from you!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-macaron-800 mb-6">Order Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-macaron-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-macaron-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Order Timing</h4>
+                                <p class="text-gray-600">Orders placed by 6 PM for next-day pickup or delivery. For same-day orders, please call us directly.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-macaron-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-macaron-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Location</h4>
+                                <p class="text-gray-600">Victoria, BC - Exact pickup location provided upon order confirmation</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-macaron-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-macaron-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Contact</h4>
+                                <p class="text-gray-600">Email: simplymacaronsyyj@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold text-macaron-800 mb-6">Payment Options</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                            <span class="font-medium">Cash (in person)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                            <span class="font-medium">Card (in person)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                            <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="font-medium">E-transfer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-macaron-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                            <span class="text-macaron-700 font-bold text-sm">SM</span>
+                        </div>
+                        <span class="font-serif text-xl font-semibold">Simply Macarons</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Handcrafted French macarons made fresh daily in Victoria, BC. Bringing a taste of Paris to Vancouver Island.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://instagram.com/simply_macarons_yyj" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors duration-200">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="/#flavors" class="text-gray-300 hover:text-white transition-colors duration-200">Flavors</a></li>
+                        <li><a href="/blog.html" class="text-gray-300 hover:text-white transition-colors duration-200">Blog</a></li>
+                        <li><a href="/#about" class="text-gray-300 hover:text-white transition-colors duration-200">About</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Victoria, BC</li>
+                        <li>simplymacaronsyyj@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 Simply Macarons. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html> 
