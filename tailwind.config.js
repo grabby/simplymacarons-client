@@ -41,7 +41,10 @@ export default {
       },
       borderRadius: {
         'scalloped': '50% 50% 50% 50% / 60% 60% 40% 40%',
-      }
+      },
+      maxWidth: {
+        '4xl': '790px',
+      },
     },
   },
   plugins: [

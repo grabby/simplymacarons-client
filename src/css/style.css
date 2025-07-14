@@ -53,6 +53,7 @@
     display: block;
     border-radius: 0.75rem;
     transition: transform 0.3s;
+    max-height: 16rem;
   }
   
   .macaron-card:hover .macaron-image,
